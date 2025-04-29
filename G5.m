@@ -1,6 +1,6 @@
 %% Introducción a los Métodos Matemáticos y Numéricos
 %% Plantilla para la entrega de la práctica realizada en grupo 
-%% Curso 2024-2024
+%% Curso 2024-2025
                     
 %% Escribir (todos y cada uno de los miembros del grupo)
 % (desarrollador 1)
