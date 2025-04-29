@@ -3,11 +3,11 @@
 %% Curso 2024-2025
                     
 %% Escribir (todos y cada uno de los miembros del grupo)
-% (desarrollador 1)
+% (Desarrollador 1)
 % Nombre completo: Alexia 
 % Apellidos completos: Fernández Millán
 
-% (desarrollador 2)
+% (Desarrollador 2)
 % Nombre completo: Claudia
 % Apellidos completos: Porcuna Rivas
 
