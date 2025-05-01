@@ -101,7 +101,7 @@ starting_point = 0.25;
 
 % Representación gráfica del punto de inicio:
 
-plot (starting_point, starting_point, 'ko', 'LineWidth', 1.5);
+plot (starting_point, starting_point, 'wo', 'MarkerSize', 8);
 hold on
 
 % Representación gráfica de la bisectriz:
@@ -128,8 +128,9 @@ curve_1 = curve_1 + desplacement_1;
 
 % Representación gráfica de la curva 1:
 
-F1 = fplot(curve_1, [starting_point, 1], 'r', 'LineWidth', 1.5);
+F1 = fplot(curve_1, [starting_point, 1], 'Color', 'r')
 hold on
+
 
 % -----------------------------
 % INVERSA DE LA CURVA 1
@@ -137,16 +138,16 @@ hold on
 
 % Resuelve simbólicamente la inversa de la función de la curva 1:
 
-inv_curve_1 = solve(curve_1 - y, x);   % Despeja X en función de Y.
-inv_curve_1 = subs(inv_curve_1, y, x); % Sustituye Y por X para graficar.
+invCurva1 = solve(curve_1 - y, x); % Despeja X en función de Y.
+invCurva1 = subs(invCurva1, y, x); % Sustituye Y por X para graficar.
 
 % Selecciona la solución válida según el dominio:
 
-inv_curve_1 = inv_curve_1(2);
+invCurva1 = invCurva1(2);
 
 % Representación gráfica de la inversa de la curva 1:
 
-inv_F1 = fplot(inv_curve_1, [starting_point, 1], 'r--', 'LineWidth', 1.5);
+F1i = fplot(invCurva1, [starting_point, 1], 'r--');
 ylim([0, 1]);
 
 %% 2) [2 puntos]
