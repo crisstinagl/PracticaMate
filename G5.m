@@ -31,9 +31,8 @@ clc
 
 %% 1) [5 puntos]
 %% Solución:
-im_ini=imread('GranCanaria2D.png'); % para leer la imagen
-im = im2double(im_ini); % convierte una imagen a tipo de datos
-%"double". Convierte los valores de los píxeles de la imagen a un rango entre 0 y 1.
+im_ini=imread('GranCanaria2D.png'); % Se lee la imagen
+im = im2double(im_ini); % Se convierte la imagen a tipo de datos "double". Convierte los valores de los píxeles de la imagen a un rango entre 0 y 1.
 
 
 %% 2) [2 puntos]
@@ -66,11 +65,16 @@ d = 406; % Valor maximo eje Y (alto)
 %save('coordenadas.mat','Nombre') % Se asigna un nombre a la matriz de puntos
 %save('Nombre') % Se guarda el fichero `Nombre.mat'
 
-load('Nombre.mat', 'Nombre');
-
 
 %% 2) [5 puntos]
 %% Solución:
+
+load('Nombre.mat', 'Nombre'); % Se cargan las coordenadas de la imagen
+
+
+
+
+
 %% 3) [1 punto]
 %% Solución:
 
