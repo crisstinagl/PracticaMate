@@ -45,29 +45,22 @@ im = im2double(im_ini); % convierte una imagen a tipo de datos
 
 %% 1) [2 puntos]
 %% Solución:
-
-% PARAMETROS PARA LAS DIMENSIONES DE LA IMAGEN 
+% PARAMETROS PARA LAS D
 a = 0; % Valor minimo eje X 
 b = 380; % Valor maximo eje X (ancho)
 c = 0; % Valor minimo eje Y 
 d = 406; % Valor maximo eje Y (alto)
 
-% DEFINICION DEL CONJUNTO DE PUNTOS PARA EL MAPA 2D
-%figure
-%imagesc([a b], [c d], flip(im,1));
-%set(gca,'ydir','normal');
+figure
+imagesc([a b], [c d], flip(im,1));
+set(gca,'ydir','normal');
+axis off
+axis equal
+[x,y] = getpts;
+Coord=[x,y];
 
-%axis off
-%axis equal
-
-%[x,y] = getpts;
-%Nombre=[x,y];
-
-%save('coordenadas.mat','Nombre') % Se asigna un nombre a la matriz de puntos
-%save('Nombre') % Se guarda el fichero `Nombre.mat'
-
-load('Nombre.mat', 'Nombre');
-
+save('coordenadas.mat','Coord') % Para asignar un nombre a la matriz
+%%save('CoordGranCanaria') % Para guardar el fichero `Nombre.mat'
 
 %% 2) [5 puntos]
 %% Solución:
