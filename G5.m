@@ -108,7 +108,6 @@ xlabel('x'); ylabel('y'); zlabel('z')
 axis tight
 grid on
 
-
 %% 3) [1 punto]
 %% Solución:
 
