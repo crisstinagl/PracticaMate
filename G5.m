@@ -71,12 +71,48 @@ d = 406; % Valor maximo eje Y (alto)
 
 load('Nombre.mat', 'Nombre'); % Se cargan las coordenadas de la imagen
 
+x = Nombre(:,1); 
+y = Nombre(:,2);
 
+% Asumimos que ya tienes una variable z asociada a cada (x, y)
+% Por ejemplo, podrías obtener z a partir de intensidades de la imagen:
+z = zeros(size(x));
+for i = 1:length(x)
+    col = round((x(i) - a) / (b - a) * size(im,2));
+    row = round((d - y(i)) / (d - c) * size(im,1)); % inverso por flip
+    z(i) = im(row, col);
+end
 
+% Ajustar z para que esté en un rango más representativo
+z = z * 1500;  % Escalado para visualizar mejor
+
+% Crear una malla regular
+[Xq, Yq] = meshgrid(linspace(min(x), max(x), 100), linspace(min(y), max(y), 100));
+
+% Interpolación cúbica
+Zq = griddata(x, y, z, Xq, Yq, 'cubic');
+
+% Gráfica
+figure
+subplot(1,2,1)
+plot3(x, y, z, 'o', 'MarkerFaceColor', 'b')
+title('Datos originales')
+xlabel('x'); ylabel('y'); zlabel('z')
+axis tight
+grid on
+
+subplot(1,2,2)
+mesh(Xq, Yq, Zq)
+title('Superficie interpolada')
+xlabel('x'); ylabel('y'); zlabel('z')
+axis tight
+grid on
 
 
 %% 3) [1 punto]
 %% Solución:
+
+
 
 
 %% NIVEL 3: [5 puntos]
