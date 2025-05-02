@@ -493,6 +493,187 @@ plot(inv_P4x, inv_P4y, 'mo', 'MarkerSize', 6, 'MarkerFaceColor', 'm');
 %% 3) [5 puntos]
 %% Solución:
 
+% -------------------------------------------------------------------------
+% PASOS PREVIOS
+% -------------------------------------------------------------------------
+
+% Declaración de las variables simbólicas:
+
+syms s
+
+% -------------------------------------------------------------------------
+% RECORRIDO 1
+% -------------------------------------------------------------------------
+
+% Tramo 1: del punto START hasta el punto de intersección de la 
+% circunferencia con la curva 2:
+
+fplot(curve_1_fun, [starting_point, P1x], 'r', 'LineWidth', 2);
+hold on
+
+% Tramo 2: del punto de intersección de la circunferencia con la curva 1 
+% al punto de intersección de la circunferencia con su inversa, siguiendo 
+% el arco de la circunferencia:
+
+% Calcula los ángulos de los dos puntos respecto al centro de la
+% circunferencia:
+
+angle1 = atan2(P1y - C2, P1x - C1);
+angle2 = atan2(inv_P1y - C2, inv_P1x - C1);
+
+% Asegura que el ángulo final sea mayor que el inicial:
+
+if angle2 < angle1
+    angle2 = angle2 + 2*pi;
+end
+
+% Define el arco de circunferencia entre ambos puntos:
+
+t_vals = linspace(angle1, angle2, 100);
+arc_x = C1 + R * cos(t_vals);
+arc_y = C2 + R * sin(t_vals);
+
+% Representación gráfica del arco:
+
+plot(arc_x, arc_y, 'r', 'LineWidth', 2);
+hold on
+
+% Tramo 3: del punto de intersección de la circunferenica con la inversa 
+% hasta el punto END, siguiendo la inversa:
+
+fplot(inv_curve_1_fun, sort([inv_P1x, starting_point]), 'r', 'LineWidth', 2);
+hold on
+
+% -------------------------------------------------------------------------
+% RECORRIDO 2
+% -------------------------------------------------------------------------
+
+% Tramo 1: del punto START hasta el punto de intersección de la 
+% circunferencia con la curva 2:
+
+fplot(curve_2_fun, [starting_point, P2x], 'g', 'LineWidth', 2);
+hold on
+
+% Tramo 2: del punto de intersección de la circunferencia con la curva 2 
+% al punto de intersección de la circunferencia con su inversa, siguiendo 
+% el arco de la circunferencia:
+
+% Calcula los ángulos de los dos puntos respecto al centro de la
+% circunferencia:
+
+angle1 = atan2(P2y - C2, P2x - C1);
+angle2 = atan2(inv_P2y - C2, inv_P2x - C1);
+
+% Asegura que el ángulo final sea mayor que el inicial:
+
+if angle2 < angle1
+    angle2 = angle2 + 2*pi;
+end
+
+% Define el arco de circunferencia entre ambos puntos:
+
+t_vals = linspace(angle1, angle2, 100);
+arc_x = C1 + R * cos(t_vals);
+arc_y = C2 + R * sin(t_vals);
+
+% Representación gráfica del arco:
+
+plot(arc_x, arc_y, 'g', 'LineWidth', 2);
+hold on
+
+% Tramo 3: del punto de intersección de la circunferenica con la inversa 
+% hasta el punto END, siguiendo la inversa:
+
+fplot(inv_curve_2_fun, sort([inv_P2x, starting_point]), 'g', 'LineWidth', 2);
+hold on
+
+% -------------------------------------------------------------------------
+% RECORRIDO 3
+% -------------------------------------------------------------------------
+
+% Tramo 1: del punto START hasta el punto de intersección de la 
+% circunferencia con la curva 3:
+
+fplot(curve_3_fun, [starting_point, P3x], 'b', 'LineWidth', 2);
+hold on
+
+% Tramo 2: del punto de intersección de la circunferencia con la curva 3 
+% al punto de intersección de la circunferencia con su inversa, siguiendo 
+% el arco de la circunferencia:
+
+% Calcula los ángulos de los dos puntos respecto al centro de la
+% circunferencia:
+
+angle1 = atan2(P3y - C2, P3x - C1);
+angle2 = atan2(inv_P3y - C2, inv_P3x - C1);
+
+% Asegura que el ángulo final sea mayor que el inicial:
+
+if angle2 < angle1
+    angle2 = angle2 + 2*pi;
+end
+
+% Define el arco de circunferencia entre ambos puntos:
+
+t_vals = linspace(angle1, angle2, 100);
+arc_x = C1 + R * cos(t_vals);
+arc_y = C2 + R * sin(t_vals);
+
+% Representación gráfica del arco:
+
+plot(arc_x, arc_y, 'b', 'LineWidth', 2);
+hold on
+
+% Tramo 3: del punto de intersección de la circunferenica con la inversa 
+% hasta el punto END, siguiendo la inversa:
+
+fplot(inv_curve_3_fun, sort([inv_P3x, starting_point]), 'b', 'LineWidth', 2);
+hold on
+
+% -------------------------------------------------------------------------
+% RECORRIDO 4
+% -------------------------------------------------------------------------
+
+% Tramo 1: del punto START hasta el punto de intersección de la 
+% circunferencia con la curva 4:
+
+fplot(curve_4_fun, [starting_point, P4x], 'm', 'LineWidth', 2);
+hold on
+
+% Tramo 2: del punto de intersección de la circunferencia con la curva 4 
+% al punto de intersección de la circunferencia con su inversa, siguiendo 
+% el arco de la circunferencia:
+
+% Calcula los ángulos de los dos puntos respecto al centro de la
+% circunferencia:
+
+angle1 = atan2(P4y - C2, P4x - C1);
+angle2 = atan2(inv_P4y - C2, inv_P4x - C1);
+
+% Asegura que el ángulo final sea mayor que el inicial:
+
+if angle2 < angle1
+    angle2 = angle2 + 2*pi;
+end
+
+% Define el arco de circunferencia entre ambos puntos:
+
+t_vals = linspace(angle1, angle2, 100);
+arc_x = C1 + R * cos(t_vals);
+arc_y = C2 + R * sin(t_vals);
+
+% Representación gráfica del arco:
+
+plot(arc_x, arc_y, 'm', 'LineWidth', 2);
+hold on
+
+% Tramo 3: del punto de intersección de la circunferenica con la inversa 
+% hasta el punto END, siguiendo la inversa:
+
+fplot(inv_curve_4_fun, sort([inv_P4x, starting_point]), 'm', 'LineWidth', 2);
+hold on
+
+
 %% NIVEL 2: [8 puntos]
 
 %% 1) [2 puntos]
