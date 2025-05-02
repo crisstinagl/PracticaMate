@@ -140,10 +140,6 @@ hold on
 inv_curve_1 = solve(curve_1 - y, x);   % Despeja X en función de Y.
 inv_curve_1 = subs(inv_curve_1, y, x); % Sustituye Y por X para graficar.
 
-% Selecciona la solución válida según el dominio:
-
-inv_curve_1 = inv_curve_1(2);
-
 % Representación gráfica de la inversa de la curva 1:
 
 inv_F1 = fplot(inv_curve_1, [starting_point, 1], 'r--', 'LineWidth', 1.5);
@@ -168,7 +164,7 @@ curve_2 = curve_2 + desplacement_2;
 
 % Representación gráfica de la curva 2:
 
-F1 = fplot(curve_2, [starting_point, 1], 'g', 'LineWidth', 1.5);
+F2 = fplot(curve_2, [starting_point, 1], 'g', 'LineWidth', 1.5);
 hold on
 
 % -----------------------------
