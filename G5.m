@@ -33,7 +33,7 @@ clc
 %% Solución:
 
 % -------------------------------------------------------------------------
-% PREPARACIÓN
+% PASOS PREVIOS
 % -------------------------------------------------------------------------
 
 % Carga la imagen desde un archivo:
@@ -140,6 +140,10 @@ hold on
 inv_curve_1 = solve(curve_1 - y, x);   % Despeja X en función de Y.
 inv_curve_1 = subs(inv_curve_1, y, x); % Sustituye Y por X para graficar.
 
+% Selecciona sólo una solución, la adecuada para el dominio:
+
+inv_curve_1 = inv_curve_1(2);
+
 % Representación gráfica de la inversa de la curva 1:
 
 inv_F1 = fplot(inv_curve_1, [starting_point, 1], 'r--', 'LineWidth', 1.5);
@@ -176,7 +180,11 @@ hold on
 inv_curve_2 = solve(curve_2 - y, x);   % Despeja X en función de Y.
 inv_curve_2 = subs(inv_curve_2, y, x); % Sustituye Y por X para graficar.
 
-% Representación gráfica de la inversa de la curva 1:
+% Selecciona sólo una solución, la adecuada para el dominio:
+
+inv_curve_2 = inv_curve_2(1);
+
+% Representación gráfica de la inversa de la curva 2:
 
 inv_F2 = fplot(inv_curve_2, [starting_point, 1], 'g--', 'LineWidth', 1.5);
 ylim([0, 1]);
@@ -257,52 +265,230 @@ ylim([0, 1]);
 %% Solución:
 
 % -------------------------------------------------------------------------
+% PASOS PREVIOS
+% -------------------------------------------------------------------------
+
+% Convierte las funciones paramétricas con las que se define la 
+% circunferencia a funciones numéricas:
+
+x_circ_fun = matlabFunction(x_circ);
+y_circ_fun = matlabFunction(y_circ);
+
+% -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA CURVA 1
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica:
 
+curve_1_fun = matlabFunction(curve_1);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - curve_1_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+P1x = x_circ_fun(t_intersect);
+P1y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(P1x, P1y, 'ro', 'MarkerSize', 6, 'MarkerFaceColor', 'r');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA INVERSA DE LA CURVA 1
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica:
 
+inv_curve_1_fun = matlabFunction(inv_curve_1);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - inv_curve_1_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+inv_P1x = x_circ_fun(t_intersect);
+inv_P1y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(inv_P1x, inv_P1y, 'ro', 'MarkerSize', 6, 'MarkerFaceColor', 'r');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA CURVA 2
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica:
 
+curve_2_fun = matlabFunction(curve_2);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - curve_2_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+P2x = x_circ_fun(t_intersect);
+P2y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(P2x, P2y, 'go', 'MarkerSize', 6, 'MarkerFaceColor', 'g');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA INVERSA DE LA CURVA 2
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica:
 
+inv_curve_2_fun = matlabFunction(inv_curve_2);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - inv_curve_2_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+inv_P2x = x_circ_fun(t_intersect);
+inv_P2y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(inv_P2x, inv_P2y, 'go', 'MarkerSize', 6, 'MarkerFaceColor', 'g');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA CURVA 3
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica también:
 
+curve_3_fun = matlabFunction(curve_3);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - curve_3_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+P3x = x_circ_fun(t_intersect);
+P3y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(P3x, P3y, 'bo', 'MarkerSize', 6, 'MarkerFaceColor', 'b');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA INVERSA DE LA CURVA 3
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica:
 
+inv_curve_3_fun = matlabFunction(inv_curve_3);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - inv_curve_3_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+inv_P3x = x_circ_fun(t_intersect);
+inv_P3y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(inv_P3x, inv_P3y, 'bo', 'MarkerSize', 6, 'MarkerFaceColor', 'b');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA CURVA 4
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica también:
 
+curve_4_fun = matlabFunction(curve_4);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - curve_4_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+P4x = x_circ_fun(t_intersect);
+P4y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(P4x, P4y, 'mo', 'MarkerSize', 6, 'MarkerFaceColor', 'm');
 
 % -------------------------------------------------------------------------
 % PUNTO DE INTERSECCIÓN DE LA INVERSA DE LA CURVA 4
 % -------------------------------------------------------------------------
 
+% Convierte la curva a función numérica:
 
+inv_curve_4_fun = matlabFunction(inv_curve_4);
+
+% Define la función que mide la diferencia vertical entre la curva y 
+% la circunferencia:
+
+intersect_fun = @(t) y_circ_fun(t) - inv_curve_4_fun(x_circ_fun(t));
+
+% Encuentra un valor de t donde se anulan, lo que quiere decir que hay una
+% interesección:
+
+t_intersect = fzero(intersect_fun, pi/2);
+
+% Evalúa coordenadas del punto de intersección:
+
+inv_P4x = x_circ_fun(t_intersect);
+inv_P4y = y_circ_fun(t_intersect);
+
+% Representación gráfica del punto de intersección:
+
+plot(inv_P4x, inv_P4y, 'mo', 'MarkerSize', 6, 'MarkerFaceColor', 'm');
 
 %% 3) [5 puntos]
 %% Solución:
