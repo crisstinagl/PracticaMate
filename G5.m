@@ -149,6 +149,114 @@ inv_curve_1 = inv_curve_1(2);
 inv_F1 = fplot(inv_curve_1, [starting_point, 1], 'r--', 'LineWidth', 1.5);
 ylim([0, 1]);
 
+% -----------------------------
+% CURVA 2
+% -----------------------------
+
+% Definición simbólica de la curva 2, y = sin(x):
+
+curve_2(x) = sin(x);
+
+% Calcula el desplazamiento vertical para que la curva pase por el punto de
+% de inicio:
+
+desplacement_2 = starting_point - curve_2(starting_point);
+
+% Aplica el desplazamiento vertical a la curva:
+
+curve_2 = curve_2 + desplacement_2;
+
+% Representación gráfica de la curva 2:
+
+F1 = fplot(curve_2, [starting_point, 1], 'g', 'LineWidth', 1.5);
+hold on
+
+% -----------------------------
+% INVERSA DE LA CURVA 2
+% -----------------------------
+
+% Resuelve simbólicamente la inversa de la función de la curva 2:
+
+inv_curve_2 = solve(curve_2 - y, x);   % Despeja X en función de Y.
+inv_curve_2 = subs(inv_curve_2, y, x); % Sustituye Y por X para graficar.
+
+% Representación gráfica de la inversa de la curva 1:
+
+inv_F2 = fplot(inv_curve_2, [starting_point, 1], 'g--', 'LineWidth', 1.5);
+ylim([0, 1]);
+
+% -----------------------------
+% CURVA 3
+% -----------------------------
+
+% Definición simbólica de la curva 3, y = log(x + 1):
+
+curve_3(x) = log(x + 1);
+
+% Calcula el desplazamiento vertical para que la curva pase por el punto de
+% de inicio:
+
+desplacement_3 = starting_point - curve_3(starting_point);
+
+% Aplica el desplazamiento vertical a la curva:
+
+curve_3 = curve_3 + desplacement_3;
+
+% Representación gráfica de la curva 3:
+
+F3 = fplot(curve_3, [starting_point, 1], 'b', 'LineWidth', 1.5);
+hold on
+
+% -----------------------------
+% INVERSA DE LA CURVA 3
+% -----------------------------
+
+% Resuelve simbólicamente la inversa de la función de la curva 3:
+
+inv_curve_3 = solve(curve_3 - y, x);   % Despeja X en función de Y.
+inv_curve_3 = subs(inv_curve_3, y, x); % Sustituye Y por X para graficar.
+
+% Representación gráfica de la inversa de la curva 3:
+
+inv_F3 = fplot(inv_curve_3, [starting_point, 1], 'b--', 'LineWidth', 1.5);
+ylim([0, 1]);
+
+% -----------------------------
+% CURVA 4
+% -----------------------------
+
+% Definición simbólica de la curva 4, y = tan(pi*x/4):
+
+curve_4(x) = tan(pi*x/4);
+
+% Calcula el desplazamiento vertical para que la curva pase por el punto de
+% de inicio:
+
+desplacement_4 = starting_point - curve_4(starting_point);
+
+% Aplica el desplazamiento vertical a la curva:
+
+curve_4 = curve_4 + desplacement_4;
+
+% Representación gráfica de la curva 4:
+
+F4 = fplot(curve_4, [starting_point, 1], 'm', 'LineWidth', 1.5);
+hold on
+
+% -----------------------------
+% INVERSA DE LA CURVA 4
+% -----------------------------
+
+% Resuelve simbólicamente la inversa de la función de la curva 4:
+
+inv_curve_4 = solve(curve_4 - y, x);   % Despeja X en función de Y.
+inv_curve_4 = subs(inv_curve_4, y, x); % Sustituye Y por X para graficar.
+
+% Representación gráfica de la inversa de la curva 4:
+
+inv_F4 = fplot(inv_curve_4, [starting_point, 1], 'm--', 'LineWidth', 1.5);
+ylim([0, 1]);
+
 %% 2) [2 puntos]
 %% Solución:
 %% 3) [5 puntos]
