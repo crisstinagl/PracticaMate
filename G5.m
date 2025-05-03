@@ -753,6 +753,105 @@ grid on
 
 %% Solución:
 
+% -------------------------------------------------------------------------
+% PASOS PREVIOS
+% -------------------------------------------------------------------------
+
+% Debemos calcular la puntuación de cada recorrido utilizando la fórmula proporcionada:
+
+% SCORE=L+10×V, donde:
+% L es la longitud del recorrido,
+% V es la velocidad máxima alcanzada durante el recorrido.
+
+% -------------------------------------------------------------------------
+% Algunos datos requeridos ya han sido calculados en el nivel 1:
+%Curvas y sus inversas: Se utilizan las funciones curve_1_fun, curve_2_fun, 
+% curve_3_fun, curve_4_fun y sus inversas inv_curve_1_fun, inv_curve_2_fun, 
+% inv_curve_3_fun, inv_curve_4_fun definidas en el Nivel 1.
+
+%Puntos de intersección: Los puntos de intersección P1x, P1y, P2x, P2y, etc., 
+% calculados en el Nivel 1 se utilizan para definir los tramos de los recorridos.
+
+%Circunferencia: Las funciones x_circ_fun y y_circ_fun se utilizan para calcular los arcos de circunferencia.
+% -------------------------------------------------------------------------
+
+
+%Ahora bien, necesitamos definir las velocidades máximas para cada tipo de tramo (curva, arco, inversa). 
+%Estas velocidades pueden ser constantes o variables según la pendiente del tramo:
+
+% DEFINICION DE VELOCIDADES MAXIMAS
+v_max_curve = 10; % Velocidad máxima en las curvas (m/s)
+v_max_arc = 8; % Velocidad máxima en el arco de circunferencia (m/s)
+v_max_inv_curve = 10; % Velocidad máxima en las inversas de las curvas (m/s)
+
+% Despues, La función curve_length calcula la longitud de un tramo de 
+% curva usando la integral de la raíz cuadrada de 1 + (dy/dx)^2:
+
+%FUNCION PARA CALCULAR LA LONGITUD DE UN TRAMO DE CURVA:  
+function L = curve_length(f, a, b)
+    syms x
+    df = diff(f, x);
+    L = double(int(sqrt(1 + df^2), a, b));
+end
+
+
+%También necesitamos La función arc_length que calcula la longitud de un arco de circunferencia usando el radio y 
+%los ángulos de los puntos de inicio y fin.
+
+%FUNCION PARA CALCULAR LA LONGITUD DE UN ARCO DE CIRCUNFERENCIA:
+
+function L = arc_length(C1, C2, R, angle1, angle2)
+    L = R * abs(angle2 - angle1);
+end
+
+
+%CALCULO DE LA LONGITUD DE CADA RECORRIDO:
+% Recorrido 1
+L1_curve = curve_length(curve_1_fun, starting_point, P1x);
+L1_arc = arc_length(C1, C2, R, atan2(P1y - C2, P1x - C1), atan2(inv_P1y - C2, inv_P1x - C1));
+L1_inv_curve = curve_length(inv_curve_1_fun, inv_P1x, starting_point);
+L1_total = L1_curve + L1_arc + L1_inv_curve;
+
+% Recorrido 2
+L2_curve = curve_length(curve_2_fun, starting_point, P2x);
+L2_arc = arc_length(C1, C2, R, atan2(P2y - C2, P2x - C1), atan2(inv_P2y - C2, inv_P2x - C1));
+L2_inv_curve = curve_length(inv_curve_2_fun, inv_P2x, starting_point);
+L2_total = L2_curve + L2_arc + L2_inv_curve;
+
+% Recorrido 3
+L3_curve = curve_length(curve_3_fun, starting_point, P3x);
+L3_arc = arc_length(C1, C2, R, atan2(P3y - C2, P3x - C1), atan2(inv_P3y - C2, inv_P3x - C1));
+L3_inv_curve = curve_length(inv_curve_3_fun, inv_P3x, starting_point);
+L3_total = L3_curve + L3_arc + L3_inv_curve;
+
+% Recorrido 4
+L4_curve = curve_length(curve_4_fun, starting_point, P4x);
+L4_arc = arc_length(C1, C2, R, atan2(P4y - C2, P4x - C1), atan2(inv_P4y - C2, inv_P4x - C1));
+L4_inv_curve = curve_length(inv_curve_4_fun, inv_P4x, starting_point);
+L4_total = L4_curve + L4_arc + L4_inv_curve;
+
+%Ahora calculamos la puntuación de cada recorrido siguiendo la formula del enunciado:
+
+P1 = L1_total + 10 * v_max_curve;
+P2 = L2_total + 10 * v_max_curve;
+P3 = L3_total + 10 * v_max_curve;
+P4 = L4_total + 10 * v_max_curve;
+
+
+%Comparamos las puntuaciones de cada recorrido y se escoge la mayor (usando ~ para ignorar el valor máximo y solo obtener el índice):
+[~, best_route] = max([P1, P2, P3, P4]);
+
+%Mostramos la puntuación de cada recorrido (redondeando en dos decimales con el especificador de formato %.2f) , y cual es la más alta:
+ 
+fprintf('Puntuación del Recorrido 1: %.2f\n', P1);
+fprintf('Puntuación del Recorrido 2: %.2f\n', P2);
+fprintf('Puntuación del Recorrido 3: %.2f\n', P3);
+fprintf('Puntuación del Recorrido 4: %.2f\n', P4);
+fprintf('El recorrido con la puntuación más alta es el Recorrido %d\n', best_route);
+
+
+
+
 %% NIVEL 4 (Opcional): [3 puntos extra]
 
 %% Solución:
