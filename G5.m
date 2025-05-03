@@ -38,13 +38,14 @@ clc
 
 % Carga la imagen desde un archivo:
 
-im_ini = imread('GranCanaria2D.png');
+im_ini = imread('Espana2D.png');
 
 % Convierte la imagen a tipo de datos double, con los valores normalizados 
 % entre 0 y 1:
 
 im = im2double(im_ini);
 
+%%
 % Genera una gráfica:
 
 figure
@@ -681,9 +682,9 @@ hold on
 
 % PARAMETROS PARA LAS DIMENSIONES DE LA IMAGEN 
 a = 0; % Valor minimo eje X 
-b = 380; % Valor maximo eje X (ancho)
+b = 900; % Valor maximo eje X (ancho)
 c = 0; % Valor minimo eje Y 
-d = 406; % Valor maximo eje Y (alto)
+d = 750; % Valor maximo eje Y (alto)
 
 % DEFINICION DEL CONJUNTO DE PUNTOS PARA EL MAPA 2D
 %figure
