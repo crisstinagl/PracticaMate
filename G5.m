@@ -45,7 +45,6 @@ im_ini = imread('Espana2D.png');
 
 im = im2double(im_ini);
 
-%%
 % Genera una gráfica:
 
 figure
