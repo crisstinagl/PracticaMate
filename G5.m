@@ -499,7 +499,7 @@ plot(inv_P4x, inv_P4y, 'mo', 'MarkerSize', 6, 'MarkerFaceColor', 'm');
 
 % Declaración de las variables simbólicas:
 
-syms s
+syms s;
 
 % -------------------------------------------------------------------------
 % RECORRIDO 1
@@ -696,6 +696,13 @@ d = 750; % Valor maximo eje Y (alto)
 %[x,y] = getpts;
 %Coord=[x,y];
 
+% -------------------------------------------------------------------------
+% PROVINCIAS SELECCIONADAS:
+% -------------------------------------------------------------------------
+% Granada, Huelva, Murcia, Valencia, Cuenca, Ciudad Real, Badajoz, Madrid,
+% León, Valladolid, Salamanca, Zaragoza, Lleida, Navarra, La Rioja, País
+% Vasco, Cantabria, Asturias, La Coruña y Orense.
+
 %save('coordEspana.mat','Coord') % Se asigna un nombre a la matriz de puntos
 %save('Coord') % Se guarda el fichero Coord.mat'
 
@@ -703,49 +710,56 @@ d = 750; % Valor maximo eje Y (alto)
 %% 2) [5 puntos]
 %% Solución:
 
-load('Coord.mat', 'CoordEspana'); % Se cargan las coordenadas de la imagen
+% INTERPOLACIÓN CÚBICA % 
+load('Coord.mat', 'Coord'); % Se carga la matriz con las coordenadas de la imagen
 
-x = CoordEspana(:,1); 
-y = CoordEspana(:,2);
+% Valores de altitud de las provincias seleccionadas (estos valores han
+% sido obtenidos de la pagina web:
+% https://www.ign.es/web/ane-datos-geograficos/-/datos-geograficos/datosGenerales?tipoBusqueda=altitudes)
+z = [3479; 912; 2001; 1832; 1839; 1371; 1110; 2430; 2648; 964; 
+    2425; 2313; 3143; 2438; 2262; 1482; 2613; 2648; 898; 2124];
 
-% Asumimos que ya tienes una variable z asociada a cada (x, y)
-% Por ejemplo, podrías obtener z a partir de intensidades de la imagen:
-z = zeros(size(x));
-for i = 1:length(x)
-    col = round((x(i) - a) / (b - a) * size(im,2));
-    row = round((d - y(i)) / (d - c) * size(im,1)); % inverso por flip
-    z(i) = im(row, col);
-end
+x = Coord(:,1); % Se accede a la columna 1, que son las coordenadas de X
+y = Coord(:,2); % Se accede a la columna 1, que son las coordenadas de Y
+Coord(:,3) = z; % Se igualan los valores introducidos de Z a la tercera columna de la matriz
 
-% Ajustar z para que esté en un rango más representativo
-z = z * 1500;  % Escalado para visualizar mejor
-
-% Crear una malla regular
+% Se crea una malla regular
 [Xq, Yq] = meshgrid(linspace(min(x), max(x), 100), linspace(min(y), max(y), 100));
 
-% Interpolación cúbica
+% Se realiza la interpolación cúbica
 Zq = griddata(x, y, z, Xq, Yq, 'cubic');
 
-% Gráfica
-figure
-subplot(1,2,1)
-plot3(x, y, z, 'o', 'MarkerFaceColor', 'b')
-title('Datos originales')
-xlabel('x'); ylabel('y'); zlabel('z')
-axis tight
-grid on
+% Gráfica 1: Datos originales
+figure;
+subplot(1,2,1);
+plot3(x, y, z, 'o', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', [0 0.5 0]); 
+title('Datos originales');
+xlabel('x'); ylabel('y'); zlabel('z');
+axis tight;
+grid on;
 
+% Gráfica 2: Superficie interpolada
 subplot(1,2,2)
-mesh(Xq, Yq, Zq)
-title('Superficie interpolada')
-xlabel('x'); ylabel('y'); zlabel('z')
-axis tight
-grid on
+g = surf(Xq, Yq, Zq);
+g.EdgeColor = 'none';        
+g.FaceColor = [0 0 0]; 
+title('Superficie interpolada');
+xlabel('x'); ylabel('y'); zlabel('z');
+axis tight;
+grid on;
+
 
 %% 3) [1 punto]
 %% Solución:
 
+% REPRESENTACIÓN DEL MAPA 2D SOBRE LA SUPERFICIE SUAVIZADA % 
+figure;
 
+surf(Xq, Yq, Zq, 'EdgeColor', [0,0,0]);  % Superficie suavizada con bordes en negro
+title('Representación del mapa 2D:');
+xlabel('x'); ylabel('y'); zlabel('z');
+view(1); 
+colorbar;
 
 
 %% NIVEL 3: [5 puntos]
@@ -847,7 +861,6 @@ fprintf('Puntuación del Recorrido 2: %.2f\n', P2);
 fprintf('Puntuación del Recorrido 3: %.2f\n', P3);
 fprintf('Puntuación del Recorrido 4: %.2f\n', P4);
 fprintf('El recorrido con la puntuación más alta es el Recorrido %d\n', best_route);
-
 
 
 
