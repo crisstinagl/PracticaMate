@@ -758,7 +758,7 @@ figure;
 surf(Xq, Yq, Zq, 'EdgeColor', [0,0,0]);  % Superficie suavizada con bordes en negro
 title('Representación del mapa 2D:');
 xlabel('x'); ylabel('y'); zlabel('z');
-view(1); 
+%view(1); 
 colorbar;
 
 
