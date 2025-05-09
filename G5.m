@@ -694,19 +694,19 @@ d = 750; % Valor maximo eje Y (alto)
 %axis equal
 
 %[x,y] = getpts;
-%Nombre=[x,y];
+%Coord=[x,y];
 
-%save('coordenadas.mat','Nombre') % Se asigna un nombre a la matriz de puntos
-%save('Nombre') % Se guarda el fichero `Nombre.mat'
+%save('coordEspana.mat','Coord') % Se asigna un nombre a la matriz de puntos
+%save('Coord') % Se guarda el fichero Coord.mat'
 
 
 %% 2) [5 puntos]
 %% Solución:
 
-load('Nombre.mat', 'Nombre'); % Se cargan las coordenadas de la imagen
+load('Coord.mat', 'CoordEspana'); % Se cargan las coordenadas de la imagen
 
-x = Nombre(:,1); 
-y = Nombre(:,2);
+x = CoordEspana(:,1); 
+y = CoordEspana(:,2);
 
 % Asumimos que ya tienes una variable z asociada a cada (x, y)
 % Por ejemplo, podrías obtener z a partir de intensidades de la imagen:
