@@ -79,12 +79,12 @@ syms x y t
 
 % Coordenadas del centro de la circunferencia:
 
-C1 = 0.5; % Coordenada X.
-C2 = 0.5; % Coordenada Y.
+C1 = 0.4; % Coordenada X.
+C2 = 0.45; % Coordenada Y.
 
 % Radio de la circunferencia:
 
-R = 0.35;
+R = 0.25;
 
 % Definición paramétrica simbólica de la circunferencia:
 
@@ -93,11 +93,11 @@ y_circ(t) = C2 + R * sin(t);
 
 % Representación gráfica de la circunferencia completa:
 
-fplot(x_circ, y_circ, [0, 2*pi], 'w', 'LineWidth', 1.5);
+fplot(x_circ, y_circ, [0, 2*pi], 'k', 'LineWidth', 1.5);
 
 % Coordenadas del punto de inicio (START/END) sobre la bisectriz y = x:
 
-starting_point = 0.25;
+starting_point = 0.2;
 
 % Representación gráfica del punto de inicio:
 
@@ -106,7 +106,7 @@ hold on
 
 % Representación gráfica de la bisectriz:
 
-F0 = fplot(x, [starting_point, 1], 'w--', 'LineWidth', 1.5);
+F0 = fplot(x, [starting_point, 1], 'k--', 'LineWidth', 1.5);
 hold on
 
 % -------------------------------------------------------------------------
