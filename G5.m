@@ -729,24 +729,24 @@ Coord(:,3) = z; % Se igualan los valores introducidos de Z a la tercera columna 
 % Se realiza la interpolación cúbica
 Zq = griddata(x, y, z, Xq, Yq, 'cubic');
 
-% Gráfica 1: Datos originales
-figure;
-subplot(1,2,1);
-plot3(x, y, z, 'o', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', [0 0.5 0]); 
-title('Datos originales');
-xlabel('x'); ylabel('y'); zlabel('z');
-axis tight;
-grid on;
+% GRÁFICA 1: Datos originales
+figure; 
+subplot(1,2,1); % Se pintan las dos graficas juntas, es decir, hay una fila, dos columnas y esta gráfica es la 1
+plot3(x, y, z, 'o', 'MarkerFaceColor', 'g', 'MarkerEdgeColor', [0 0.5 0]); % Se pintan los bordes de color verde oscuro y los puntos se rellan de color verde
+title('Datos originales'); % Titulo de la gráfica
+xlabel('x'); ylabel('y'); zlabel('z'); % Ejes de coordenadas x, y, z
+axis tight; % Se ajustan los ejes
+grid on; % Se activa la cuadricula
 
-% Gráfica 2: Superficie interpolada
-subplot(1,2,2)
-g = surf(Xq, Yq, Zq);
-g.EdgeColor = 'none';        
-g.FaceColor = [0 0 0]; 
-title('Superficie interpolada');
-xlabel('x'); ylabel('y'); zlabel('z');
-axis tight;
-grid on;
+% GRÁFICA 2: Superficie interpolada
+subplot(1,2,2) % Se pintan las dos graficas juntas, es decir, hay una fila, dos columnas y esta gráfica es la 2
+g = surf(Xq, Yq, Zq); % Se genera la superficie con las coordenadas Xq e Yq y la altitud Zq
+g.EdgeColor = 'none'; % No hay bordes    
+g.FaceColor = [0 0 0]; % Color negro
+title('Superficie interpolada'); % Titulo de la gráfica
+xlabel('x'); ylabel('y'); zlabel('z'); % Ejes de coordenadas x, y, z
+axis tight; % Se ajustan los ejes
+grid on; % Se activa la cuadricula
 
 
 %% 3) [1 punto]
@@ -755,11 +755,10 @@ grid on;
 % REPRESENTACIÓN DEL MAPA 2D SOBRE LA SUPERFICIE SUAVIZADA % 
 figure;
 
-surf(Xq, Yq, Zq, 'EdgeColor', [0,0,0]);  % Superficie suavizada con bordes en negro
-title('Representación del mapa 2D:');
-xlabel('x'); ylabel('y'); zlabel('z');
-%view(1); 
-colorbar;
+surf(Xq, Yq, Zq, 'EdgeColor', [0,0,0]);  % Se pinta la superficie de forma suavizada y con bordes en negro
+title('Representación del mapa 2D:'); % Título de la gráfica
+xlabel('x'); ylabel('y'); zlabel('z'); % Ejes de coordenadas x, y, z
+colorbar; % Se añade una barra de colores a la derecha de la grafica mostrando los rangos de altitud 
 
 
 %% NIVEL 3: [5 puntos]
@@ -865,6 +864,34 @@ fprintf('El recorrido con la puntuación más alta es el Recorrido %d\n', best_r
 
 
 %% NIVEL 4 (Opcional): [3 puntos extra]
+% Parte de inicialización
+
+% se crean los vídeos en el formate de "VideoWriter" para cada uno de los
+% recorridos
+video1 = VideoWriter('recorrido1', 'MPEG-4');
+video1.FrameRate = 30;
+open(video1);
+
+video2 = VideoWriter('recorrido2', 'MPEG-4');
+video2.FrameRate = 30;
+open(video2);
+
+video3 = VideoWriter('recorrido3', 'MPEG-4');
+video3.FrameRate = 30;
+open(video3);
+
+video4 = VideoWriter('recorrido4', 'MPEG-4');
+video4.FrameRate = 30;
+open(video4);
+
+
+
+
+% Se cierran todos los videos
+close(video1);
+close(video2);
+close(video3);
+close(video4);
 
 %% Solución:
 
