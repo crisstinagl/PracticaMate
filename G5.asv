@@ -862,12 +862,42 @@ fprintf('Puntuación del Recorrido 4: %.2f\n', P4);
 fprintf('El recorrido con la puntuación más alta es el Recorrido %d\n', best_route);
 
 
-%% NIVEL 4 (Opcional): 
 
+%% NIVEL 4 (Opcional): [3 puntos extra]
+% Parte de inicialización
+
+% se crean los vídeos en el formate de "VideoWriter" para cada uno de los
+% recorridos
+video1 = VideoWriter('recorrido1', 'MPEG-4');
+video1.FrameRate = 30;
+open(video1);
+
+video2 = VideoWriter('recorrido2', 'MPEG-4');
+video2.FrameRate = 30;
+open(video2);
+
+video3 = VideoWriter('recorrido3', 'MPEG-4');
+video3.FrameRate = 30;
+open(video3);
+
+video4 = VideoWriter('recorrido4', 'MPEG-4');
+video4.FrameRate = 30;
+open(video4);
+
+
+
+
+% Se cierran todos los videos
+close(video1);
+close(video2);
+close(video3);
+close(video4);
+
+
+%% NIVEL 4 (Opcional): [3 puntos extra]
 % Solución: Animación de los 4 recorridos y creación de vídeos
 
-% 1. Comprobamos que todas las variables necesarias existen 
-% Esto asegura que antes de ejecutar el Nivel 4, se haya ejecutado el Nivel 1 completo
+% === Comprobar si todas las variables necesarias existen ===
 requiredVars = {'starting_point','P1x','P1y','inv_P1x','inv_P1y',...
                 'P2x','P2y','inv_P2x','inv_P2y',...
                 'P3x','P3y','inv_P3x','inv_P3y',...
@@ -878,74 +908,50 @@ requiredVars = {'starting_point','P1x','P1y','inv_P1x','inv_P1y',...
                 'curve_4_fun','inv_curve_4_fun',...
                 'C1','C2','R','im'};
 
-% Recorremos cada variable y mostramos error si falta alguna
 for k = 1:length(requiredVars)
     if ~exist(requiredVars{k}, 'var')
         error(['Falta la variable: ', requiredVars{k}, '. Ejecuta primero los niveles 1, 2 y 3.']);
     end
 end
 
-% 2. Parámetros generales 
-N = 100; % Número de pasos para la animación (fotogramas por tramo)
+% === Parámetros ===
+N = 100; % Número de pasos de animación
 
-% 3. Función auxiliar para animar cada recorrido
+% === Helper para animar recorrido ===
 function animar_recorrido(x1, y1, x2, y2, x3, y3, video_obj, color, im, starting_point)
-    % Une los 3 tramos en una única trayectoria
     x_full = [x1, x2, x3];
     y_full = [y1, y2, y3];
 
-    % Crea la figura y muestra el mapa satelital
     figure
-    axis([0 1 0 1]) % Limita el dominio al cuadrado [0,1]x[0,1]
-    imshow(flip(im, 1), 'XData', [0 1], 'YData', [0 1]); % Muestra la imagen en el fondo
-    set(gca, 'YDir', 'normal'); % Corrige el eje Y
+    axis([0 1 0 1])
+    imshow(flip(im, 1), 'XData', [0 1], 'YData', [0 1]);
+    set(gca, 'YDir', 'normal');
     hold on
-
-    % Muestra el punto START/END
     plot(starting_point, starting_point, 'ko', 'MarkerFaceColor', 'k');
+    plot(x_full, y_full, [color '--'], 'LineWidth', 1); % trayectoria total
 
-    % Dibuja la ruta completa en línea discontinua del color indicado
-    plot(x_full, y_full, [color '--'], 'LineWidth', 1);
-
-    % Recorremos toda la trayectoria para generar el vídeo
     for i = 1:length(x_full)
-        % Dibuja un punto que se mueve a lo largo de la ruta
         h = plot(x_full(i), y_full(i), [color 'o'], 'MarkerSize', 8, 'MarkerFaceColor', color);
-
-        % Captura el frame actual y lo añade al vídeo
         frame = getframe(gcf);
         writeVideo(video_obj, frame);
-
-        % Borra el punto para no dejar traza antes del siguiente
-        delete(h);
+        delete(h); % limpia el punto para el siguiente
     end
-
-    % Cierra la figura para no acumular ventanas
     close(gcf)
 end
 
-% 4. RECORRIDO 1 (rojo) 
-% Tramo 1: START hasta punto de intersección con la curva
+% === Recorrido 1 ===
 x1 = linspace(starting_point, P1x, N);
 y1 = curve_1_fun(x1);
-
-% Tramo 2: Arco sobre la circunferencia entre los dos puntos de intersección
 theta = linspace(atan2(P1y-C2,P1x-C1), atan2(inv_P1y-C2,inv_P1x-C1), N);
 x2 = C1 + R*cos(theta);
 y2 = C2 + R*sin(theta);
-
-% Tramo 3: desde la inversa hasta volver a START
 x3 = linspace(inv_P1x, starting_point, N);
 y3 = inv_curve_1_fun(x3);
-
-% Crear y abrir archivo de vídeo
 video1 = VideoWriter('recorrido1', 'MPEG-4'); video1.FrameRate = 30; open(video1);
-
-% Llama a la función para animar este recorrido
 animar_recorrido(x1, y1, x2, y2, x3, y3, video1, 'r', im, starting_point);
-close(video1); % Cierra el archivo del vídeo
+close(video1);
 
-% 5. RECORRIDO 2 (verde)
+% === Recorrido 2 ===
 x1 = linspace(starting_point, P2x, N);
 y1 = curve_2_fun(x1);
 theta = linspace(atan2(P2y-C2,P2x-C1), atan2(inv_P2y-C2,inv_P2x-C1), N);
@@ -957,7 +963,7 @@ video2 = VideoWriter('recorrido2', 'MPEG-4'); video2.FrameRate = 30; open(video2
 animar_recorrido(x1, y1, x2, y2, x3, y3, video2, 'g', im, starting_point);
 close(video2);
 
-% 6. RECORRIDO 3 (azul)
+% === Recorrido 3 ===
 x1 = linspace(starting_point, P3x, N);
 y1 = curve_3_fun(x1);
 theta = linspace(atan2(P3y-C2,P3x-C1), atan2(inv_P3y-C2,inv_P3x-C1), N);
@@ -969,7 +975,7 @@ video3 = VideoWriter('recorrido3', 'MPEG-4'); video3.FrameRate = 30; open(video3
 animar_recorrido(x1, y1, x2, y2, x3, y3, video3, 'b', im, starting_point);
 close(video3);
 
-% 7. RECORRIDO 4 (magenta)
+% === Recorrido 4 ===
 x1 = linspace(starting_point, P4x, N);
 y1 = curve_4_fun(x1);
 theta = linspace(atan2(P4y-C2,P4x-C1), atan2(inv_P4y-C2,inv_P4x-C1), N);
